@@ -1,0 +1,32 @@
+name: Deploy Appscript
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  deploy_script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+      - name: Install clasp
+        run: npm install -g @google/clasp
+      - name: Login to clasp
+        run: echo "$CLASPRC" > $HOME/.clasprc.json
+        env:
+          CLASPRC: ${{ secrets.CLASPRC }}
+      - name: Use dev clasp file
+        if: github.ref == 'refs/heads/develop'
+        run: mv .clasp.dev.json .clasp.json
+      - name: Use prod clasp file
+        if: github.ref == 'refs/heads/master'
+        run: mv .clasp.prod.json .clasp.json
+      - name: Deploy
+        run: clasp push -f
