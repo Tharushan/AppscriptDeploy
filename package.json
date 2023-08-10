@@ -1,0 +1,16 @@
+{
+  "name": "appscriptdeploy",
+  "version": "1.0.0",
+  "description": "A repo that automatically deploys to Google Appscript using clasp and Github Actions.",
+  "main": "src/main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tharushan",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/google-apps-script": "^1.0.66",
+    "@types/node": "^20.4.9",
+    "typescript": "^3.8.2"
+  }
+}
